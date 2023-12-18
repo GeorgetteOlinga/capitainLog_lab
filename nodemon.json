@@ -1,0 +1,7 @@
+{
+    "ext": "js, jsx",
+    "watch": [
+        "server.js",
+        "views/"
+    ]
+}

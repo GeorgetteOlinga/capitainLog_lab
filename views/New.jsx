@@ -13,7 +13,6 @@ function New(){
         </>
     )
 }
-//..
 module.exports = New
 /*
     {

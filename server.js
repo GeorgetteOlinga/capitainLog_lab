@@ -50,14 +50,14 @@ app.get('/', (req, res) => {
   res.send("your server is running... better catch it."); 
 });
 
-//--------- Logs index -------------
+//--------- Logs index -------------get
 
 app.get('/logs', async (req, res) => {
   let logs = await Log.find({})
   res.render('Index', {logs})
 })
 
-//-------  New --------------------------------------
+//-------  New --------------------------------------get
 /*
     Middleware function
       (req, res) => {}
@@ -73,16 +73,62 @@ app.get('/logs/new', (req, res)=>{
 // });
 //make a 'form' with action="/logs"and method="POST" in new.jsx
 
-app.post('/logs/', async (req, res)=>{
-    req.body.shipIsBroken = req.body.shipIsBroken === 'on'
-    let newLog = new Log(req.body)
-    await newLog.save()
-    res.redirect('/logs')
+// --------- Show --------- get
+
+/*
+    /logs/0
+    /logs/1
+*/
+app.get('/log/:i', async (req, res) => {
+  let logs = await Log.find({})
+  let log  = logs[req.params.i]
+  if (!log) {
+    res.status(404).send("Log not found.")
+  }
+  res.render('Show', {log})
 })
 
 
+//-------- Create ---------------------post
+
+app.post('/logs', async (req, res)=>{
+  req.body.shipIsBroken = req.body.shipIsBroken === 'on'
+  let newLog = new Log(req.body)
+  await newLog.save()
+  res.redirect('/logs')
+})
 
 
+//-------- Edit --------------------- get
+
+app.get('/logs/edit/:i', async (req, res) => {
+  let logs = await Log.find({})
+  let log  = logs[req.params.i]
+  if (!log) {
+    res.status(404).send("Log not found.")
+  }
+  res.render('Edit', {log})
+})
+
+//-------- Update --------------------- put
+
+app.post('/logs/update', async (req, res) => {
+  req.body.shipIsBroken = req.body.shipIsBroken ? true : false
+  try {
+    let mongoRes = await Log.findOneAndUpdate({_id: req.body.id}, req.body)
+    // console.log(mongoRes)
+    res.redirect('/logs')
+  } catch (err) {
+    console.log(err)
+    res.status(500).send("Error updating log")
+  }
+})
+
+//-------- Destroy --------------------- delete
+
+app.delete('/log/delete/:id', async (req, res) => {
+    await findByIdAndDelete(req.params.id)
+})
 
 // Server Listener
 //////////////////////////////////////////////
