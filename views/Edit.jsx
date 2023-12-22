@@ -4,7 +4,7 @@ export default function Edit({ log }) {
 
   return (
     <>
-        <form method="POST" action="/logs/update">
+        <form method="POST" action={"/logs/" + log._id}>
             Title: <input type="text" name="title" defaultValue={log.title}/> <br />
             Entry: <textarea name="entry" defaultValue={log.entry}></textarea> <br />
             Is broken: <input type="checkbox" name="shipIsBroken" defaultChecked={log.shipIsBroken ? "on" : ""}/> <br />

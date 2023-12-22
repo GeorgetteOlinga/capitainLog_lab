@@ -1,7 +1,13 @@
 const React = require("react")
-function New(){
-    return (
-        <>
+// function New(){
+//     return (
+
+class New extends React.Component {
+    render () {
+        return (
+            <div>
+                <h1>Enter New Log Page</h1>
+                {/* NOTE: action will be the route, method will be the HTTP verb */}
         <form action="/logs" method="POST">
             Title: <input type="text" name="title" /> <br />
             Entry: <textarea name="entry"></textarea> <br />
@@ -9,9 +15,9 @@ function New(){
             <input type="submit" value="submit"/>
           
         </form>
-        
-        </>
+        </div>
     )
+}
 }
 module.exports = New
 /*
