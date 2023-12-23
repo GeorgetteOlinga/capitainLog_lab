@@ -19,10 +19,12 @@ class Index extends React.Component {
                             <li>
                                 <a href={`/logs/${log._id}`}>
                                     {log.title}
-                                </a>                                 <p>{log.entry}</p> 
-                                <span>Ship Condition {log.shipIsBroken ? "BROKEN" : "GOOD"}</span>
+                                </a>                                <p>{log.entry}</p> 
+                                <span>Ship Condition {log.shipIsBroken ? "BROKEN" : "GOOD"}
+                                </span>
                                 
                             <br />
+                            
                             <a href={`/logs/${log._id}/edit`}> Edit This log </a>
                             <form action={`/logs/${log._id}?_method=DELETE`} method="POST">
                                 <input type="submit" value="DELETE" />
